@@ -22,6 +22,19 @@ int mod_inverse(int a, int m)
 	return 0; // No inverse
 }
 
+int coprime(int a, int b)
+{
+	int greater = a;
+	if (b > a)
+		greater = b;
+
+	for (int i = 2; i <= greater; i++)
+		if (a % i == 0 && b % i == 0)
+			return 0;
+
+	return 1;
+}
+
 int main(int argc, char* argv[])
 {
 	if (argc < 3)
@@ -54,6 +67,13 @@ int main(int argc, char* argv[])
 			decrypt = 1;
 	}
 
+	// input validation
+	if (!coprime(key_a, 26) || key_a <= 0)
+	{
+		printf("Invalid A key: %d\n", key_a);
+		return 2;
+	}
+	
 	int i, c;
 	if (!decrypt)
 	{
